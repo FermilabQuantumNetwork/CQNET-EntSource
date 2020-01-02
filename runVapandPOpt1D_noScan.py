@@ -47,7 +47,7 @@ i = maxid +1
 
 valuesDC = [0]*5
 valuesVap = [0]*4
-values = [0]
+values = []
 try:
 	SetChannel(Resource,DCBias_ChannelNumber)
 	Va_minP = float(Resource.query("MEAS:VOLT?").rstrip())
@@ -74,13 +74,13 @@ try:
 	Vapplied=VoltageStairs(1.275,1.245,8,1)#5*60)
 	#Vapplied = VoltageConst(1.245,3*3600)
 	t=np.arange(1,1+len(Vapplied))
-	fig=plt.figure()
-	ax=plt.subplot(111)
-	ax.plot(t/3600,Vapplied)
-	ax.set_xlabel("Hours")
-	ax.set_ylabel("Voltage (V)")
-	plt.title("Applied Voltage vs. Time")
-	fig.savefig("TotalScanTrace.png")
+	#fig=plt.figure()
+	#ax=plt.subplot(111)
+	#ax.plot(t/3600,Vapplied)
+	#ax.set_xlabel("Hours")
+	#ax.set_ylabel("Voltage (V)")
+	#plt.title("Applied Voltage vs. Time")
+	#fig.savefig("TotalScanTrace.png")
 	#plt.show()
 	Vin=[]
 	print('Writing and reading applied/input voltage values, press Ctrl-C to quit...')
@@ -142,15 +142,15 @@ try:
 		SetVoltage(Resource,DCBias_ChannelNumber,Va_minP)
 		i+=1
 	Vin = np.array(Vin)
-	fig=plt.figure()
-	ax=plt.subplot(111)
-	ax.plot(t/3600,Vapplied, label = "Applied Voltage")
-	ax.plot(t/3600,Vin, label = "Vin")
-	ax.set_xlabel("Hours")
-	ax.set_ylabel("Voltage (V)")
-	ax.legend()
-	plt.title("Voltage vs. Time")
-	fig.savefig("PostScanTrace.png")
+	#fig=plt.figure()
+	#ax=plt.subplot(111)
+	#ax.plot(t/3600,Vapplied, label = "Applied Voltage")
+	#ax.plot(t/3600,Vin, label = "Vin")
+	#ax.set_xlabel("Hours")
+	#ax.set_ylabel("Voltage (V)")
+	#ax.legend()
+	#plt.title("Voltage vs. Time")
+	#fig.savefig("PostScanTrace.png")
 	finishedRun = True
 	while(True):
 		time.sleep(1) #Wait 1 second
@@ -173,6 +173,7 @@ try:
 		p=10**9 * powermeter.read
 		valuesDC[4]="{0:.3f}".format(p)
 		query="INSERT INTO IM(datetime, DCVap, DCVin, P) values(NOW(), +"+valuesDC[2]+","+valuesDC[3]+","+valuesDC[4]+");"
+		cur.execute(query)
 		values = [valuesVap[0],valuesVap[1],valuesVap[2],valuesVap[3],valuesDC[2],valuesDC[3],valuesDC[4]]
 		line=' {0:>6} | {1:>6} | {2:>6} | {3:>6} | {4:>6} | {5:>6} | {6:>6} '.format(*values)
 		print(line)
@@ -212,7 +213,7 @@ except KeyboardInterrupt:
 	print("Quit")
 	Resource.write("SYSTEM:LOCAL")
 	print("Set manual access")
-	if(finishedRun):
-		plt.show()
+	#if(finishedRun):
+		#plt.show()
 
 db.close()

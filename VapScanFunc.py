@@ -19,13 +19,12 @@ import matplotlib.pyplot as plt
 
 def InitiateResource():
     VISAInstance=pyvisa.ResourceManager('@py')
-    #ResourceList=VISAInstance.list_resources()
-    #print(ResourceList)
-    #for index in range(len(ResourceList)):
-    # print("Device number " + str(index) + " - " + ResourceList[index])
-    #DeviceNumber = input("Which device is the power supply? ")
-    #resourceName=ResourceList[int(DeviceNumber)]
-    resourceName="USB0::65535::37168::602361010736720001::0::INSTR"
+    ResourceList=VISAInstance.list_resources()
+    print(ResourceList)
+    for index in range(len(ResourceList)):
+        print("Device number " + str(index) + " - " + ResourceList[index])
+    DeviceNumber = input("Which device is the power supply? ")
+    resourceName=ResourceList[int(DeviceNumber)]
     Resource = VISAInstance.open_resource(resourceName)#,write_termination='\n',read_termination='\r')
     print(Resource.query("*IDN?"))
     print("Set remote access")
@@ -49,8 +48,6 @@ def SetVoltage(Resource, ChannelNumber, ChVoltage):
     return float(Resource.query("MEAS:VOLT?").rstrip())
 
 def VoltageStairs(V1,V2,numSteps,sizeStep):
-    durFeedback = 4
-    sizeStep = int(round(sizeStep/4))
     vArray = np.linspace(V1,V2,numSteps)
     vStairs=[]
     for Vap in vArray:
@@ -62,7 +59,6 @@ def VoltageRamp(V1,V2,numV):
     return np.linspace(V1,V2,numV)
 
 def VoltageConst(V,size):
-    size = int(round(size/4))
     return V*np.ones(size)
 
 def DisableLVOutput(Resource):
