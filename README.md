@@ -11,6 +11,9 @@ Code for characterizing the entanglement source (Bob).
 * The "Other" folder contains figures, starter code, obsolete/older versions of code, etc.
 * The "...run" folders contains code edited for particular runs.
 
+### Notes
+* The reason for combining the interferometer's temperature scan code with Bob's intensity modulator code is that as far as I know, it isn't possible to control the same power supply with two separate scripts simultaneously.
+
 ## Requirements
 ### Mysql
 The scripts here store and collect data from mysql tables from local mysql databases. If you don't have
