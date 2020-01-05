@@ -7,8 +7,9 @@ Code for characterizing the entanglement source (Bob).
 2. `runVapandPOpt1D_noScan.py` (Python3, Commented, INQNET4) -- Does temperature scan of interferometer and runs the power optimization feedback code for the DC Bias pin of Bob's intensity modulator. Does not do an initial scan of DC Bias voltages for the power optimization.
 3. `runVapandPOpt1D.py` (Python3, Commented, INQNET4) -- Does temperature scan of interferometer and runs the power optimization feedback code for the DC Bias pin of Bob's intensity modulator.
 4. `vdlControl.py` (Python3, Commented, INQNET4) -- Controls the variable delay line and updates the delay from FQNET GUI's database.
-The "Other" folder contains figures, starter code, obsolete/older versions of code, etc.
 
+The "Other" folder contains figures, starter code, obsolete/older versions of code, etc.
+The "...run" folders contains code edited for particular runs.
 ## Requirements
 ### Mysql
 The scripts here store and collect data from mysql tables from local mysql databases. If you don't have
